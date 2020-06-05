@@ -14,13 +14,14 @@ class CreateTeamsTable extends Migration
     public function up()
     {
         Schema::create('teams', function (Blueprint $table) {
-            $table->bigIncrements('team_id');
-            $table->string('team_name');
-            $table->string('team_logo');
-            $table->bigInteger('team_year');
-            $table->text('team_address');
-            $table->string('team_city');
+            $table->bigIncrements('id');
+            $table->string('name');
+            $table->string('logo');
+            $table->bigInteger('year');
+            $table->text('address');
+            $table->string('city');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

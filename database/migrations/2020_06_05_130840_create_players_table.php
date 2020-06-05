@@ -14,11 +14,11 @@ class CreatePlayersTable extends Migration
     public function up()
     {
         Schema::create('players', function (Blueprint $table) {
-            $table->bigIncrements('player_id');
-            $table->string('player_name');
-            $table->decimal('player_tall');
-            $table->decimal('player_weight');
-            $table->enum('player_role', 
+            $table->bigIncrements('id');
+            $table->string('name');
+            $table->decimal('tall');
+            $table->decimal('weight');
+            $table->enum('role', 
                 array(
                     'penyerang',
                     'gelandang',
@@ -26,9 +26,10 @@ class CreatePlayersTable extends Migration
                     'penjaga gawang'
                 )
             );
-            $table->integer('player_back_num');
-            $table->bigInteger('player_team_id');
+            $table->integer('back_num');
+            $table->bigInteger('team_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

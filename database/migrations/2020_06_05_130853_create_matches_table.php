@@ -14,11 +14,12 @@ class CreateMatchesTable extends Migration
     public function up()
     {
         Schema::create('matches', function (Blueprint $table) {
-            $table->bigIncrements('match_id');
-            $table->integer('match_scores');
-            $table->bigInteger('player_id_goal_maker');
+            $table->bigIncrements('id');
+            $table->integer('scores');
+            $table->bigInteger('player_id')->unsigned();
             $table->dateTime('goal_occured_time');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
