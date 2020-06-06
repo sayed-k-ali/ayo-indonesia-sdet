@@ -14,3 +14,11 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+Route::resource('team', 'TeamController')->middleware('auth');
+Route::resource('match', 'MatchController')->middleware('auth');
+Route::resource('schedule', 'ScheduleController')->middleware('auth');
+Route::resource('player', 'PlayerController')->middleware('auth');
