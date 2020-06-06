@@ -12,5 +12,5 @@ php artisan serve
 ```
 
 ## Login credential
-- [username]: admin@ayo.co.id
-- [password]: admin1234
+username: admin@ayo.co.id
+password: admin1234
