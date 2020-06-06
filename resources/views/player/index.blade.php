@@ -9,12 +9,16 @@
                 {{ session()->get('success') }}  
                 </div>
             @endif
+            @if(session()->get('error'))
+                <div class="alert alert-danger">
+                {{ session()->get('error') }}  
+                </div>
+            @endif
             <a style="margin: 19px;" href="{{ route('player.create')}}" class="btn btn-primary">Tambah Pemain</a>
             <h3>Team</h3>    
             <table class="table table-striped">
                 <thead>
                     <tr>
-                    <td>ID</td>
                     <td>Name</td>
                     <td>Tim</td>
                     <td>Tinggi</td>
@@ -27,7 +31,6 @@
                 <tbody>
                     @foreach($players as $player)
                     <tr>
-                        <td>{{$player->id}}</td>
                         <td>{{$player->name}}</td>
                         <td>{{$player->team->name}}</td>
                         <td>{{$player->tall}}</td>

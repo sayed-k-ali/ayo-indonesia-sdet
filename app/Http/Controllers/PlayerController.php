@@ -43,6 +43,12 @@ class PlayerController extends Controller
     {
         $playerData = $request->all();
         unset($playerData['_token']);
+
+        $isAvailable = $this->getAvailabilityPlayerNumber($playerData['back_num'], $playerData['team_id']);
+
+        if($isAvailable){
+            return redirect('/player')->with('error', 'Nomor punggung dalam satu tim tidak boleh sama');
+        }
         $player = new Player($playerData);
         $player->save();
         return \redirect('/player')->with('success', 'Data pemain disimpan');
@@ -88,6 +94,13 @@ class PlayerController extends Controller
         $player->weight = $request->get('weight');
         $player->role = $request->get('role');
         $player->back_num = $request->get('back_num');
+        
+        $isAvailable = $this->getAvailabilityPlayerNumber($player->back_num, $player->team_id);
+
+        if($isAvailable){
+            return redirect('/player')->with('error', 'Nomor punggung dalam satu tim tidak boleh sama');
+        }
+
         $player->save();
         return redirect('/player')->with('success', 'Data pemain sudah di ubah');
     }
@@ -102,5 +115,18 @@ class PlayerController extends Controller
     {
         Player::destroy($id);
         return \redirect('/player')->with('success', 'player has been deleted temporarily');
+    }
+
+    private function getAvailabilityPlayerNumber($num, $team){
+        $player_num = Player::where(['back_num' => $num, 'team_id' => $team])->get()->toArray();
+
+        return count($player_num) > 0 ? true : false ;
+    }
+
+    public function get_players_by_team($id)
+    {
+        $player = Player::where('team_id', $id);
+
+        return $player->toJson();
     }
 }

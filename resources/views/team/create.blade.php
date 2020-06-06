@@ -1,15 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<!-- <form action="{{ route('team.store') }}" method="post">
-    {{ csrf_field() }}
-    <Label>Nama Tim: </Label><input name="name" /> <br/>
-    <Label>Logo: </Label><input name="logo" /> <br/>
-    <Label>Tahun: </Label><input name="year" /> <br/>
-    <Label>Alamat: </Label><textarea name="address"></textarea> <br/>
-    <Label>Kota: </Label><input name="city" /> <br/>
-    <input type="submit" value="Submit" />
-</form> -->
 <div class="container">
 <form action="{{ route('team.store') }}" method="post">
   @csrf

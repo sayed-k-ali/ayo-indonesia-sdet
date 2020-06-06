@@ -14,7 +14,7 @@
   </div>
   <div class="form-group">
     <label for="homeTeamName">Tuan Rumah</label>
-    <select class="form-control" name="home" id="homeTeamName">
+    <select class="form-control" name="home_team_id" id="homeTeamName">
         <option readonly="true" selected>---Pilih Tim---</option>
         @foreach($teams as $team)
             <option value="{{ $team->id }}">{{ $team->name }}</option>
@@ -23,7 +23,7 @@
   </div>
   <div class="form-group">
     <label for="awayTeamName">Tamu</label>
-    <select class="form-control" name="away" id="awayTeamName">
+    <select class="form-control" name="away_team_id" id="awayTeamName">
         <option readonly="true" selected>---Pilih Tim---</option>
         @foreach($teams as $team)
             <option value="{{ $team->id }}">{{ $team->name }}</option>

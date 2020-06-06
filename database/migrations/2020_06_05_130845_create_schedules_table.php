@@ -17,8 +17,9 @@ class CreateSchedulesTable extends Migration
             $table->bigIncrements('id');
             $table->date('date');
             $table->time('time');
-            $table->bigInteger('home'); //team id
-            $table->bigInteger('away'); //team id
+            $table->bigInteger('home_team_id'); //team id
+            $table->bigInteger('away_team_id'); //team id
+            $table->boolean('is_finish');
             $table->timestamps();
             $table->softDeletes();
         });

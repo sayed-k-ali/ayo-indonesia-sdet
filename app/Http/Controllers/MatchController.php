@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use \App\Schedule;
-use \App\Team;
+use App\Match;
+use App\Schedule;
+use App\Player;
 
-class ScheduleController extends Controller
+class MatchController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +16,8 @@ class ScheduleController extends Controller
      */
     public function index()
     {
-        $schedules = Schedule::all();
-        return view('schedule.index', compact('schedules'));
+        $schedule = Schedule::all();
+        return view('match.index', compact(['schedule']));
     }
 
     /**
@@ -24,10 +25,16 @@ class ScheduleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($schedule_id)
     {
-        $teams = Team::all();
-        return view('schedule.create', compact('teams'));
+        $schedule = Schedule::find($schedule_id);
+        $home_player = Player::where('team_id',$schedule->home_team_id)->get();
+        $away_player = Player::where('team_id',$schedule->away_team_id)->get();
+
+        // $home_score = Match::where('team_id',$schedule->home_team_id)->get();
+        // $away_score = Match::where('team_id',$schedule->away_team_id)->get();
+
+        return view('match.create', compact(['schedule', 'home_player', 'away_player']));
     }
 
     /**
@@ -38,13 +45,13 @@ class ScheduleController extends Controller
      */
     public function store(Request $request)
     {
-        $scheduleData = $request->all();
-        $scheduleData['is_finish'] = false;
-        unset($scheduleData['_token']);
-        $schedule = new Schedule($scheduleData);
-        
-        $schedule->save();
-        return redirect('/schedule')->with('success', 'Jadwal pertandingan disimpan');
+        // dd($request->all());
+        $matchData = $request->all();
+        unset($matchData['_token']);
+        $matchData['scores'] = 1;
+        $match = new Match($matchData);
+        $match->save();
+        return redirect(route('match.create', $matchData['schedule_id']));
     }
 
     /**
